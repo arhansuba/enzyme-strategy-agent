@@ -1,4 +1,7 @@
 Enzyme Strategy Agent
+
+
+
 Overview
 Enzyme Strategy Agent is a decentralized finance (DeFi) protocol that integrates Enzyme Finance with Zero-Knowledge Machine Learning (ZKML) to provide advanced investment strategies and automation. This project aims to leverage the capabilities of Enzyme Finance's asset management infrastructure and the predictive power of ZKML to create a sophisticated, automated trading and investment platform.
 
