@@ -1,5 +1,5 @@
 from brownie import interface
-from brownie.network.account import Account
+from ape import Account
 
 
 class EnzymeVaultInterface:

@@ -1,18 +1,23 @@
 import os
 import pprint
-from dotenv import find_dotenv, load_dotenv
+import numpy as np
 from giza.agents.action import action
 from giza.agents import GizaAgent
 from giza.agents.task import task
 
-# .env dosyasından çevresel değişkenleri yükle
-load_dotenv(find_dotenv())
 
-# Çevresel değişkenlerden diğer gerekli değerleri al
+
+# Get necessary values from environmental variables
 MODEL_ID = os.environ.get("MODEL_ID")
 VERSION_ID = os.environ.get("VERSION_ID")
 USER_ADDRESS = os.environ.get("USER_ADDRESS")
 SEPOLIA_RPC_URL = os.environ.get("SEPOLIA_RPC_URL")
+
+# Example function to generate sample data (replace with your actual data generation logic)
+def generate_data():
+    realized_vol = np.random.uniform(0, 10)
+    dec_price_change = np.random.uniform(-0.1, 0.1)
+    return realized_vol, dec_price_change
 
 # ZKML Integration Agent
 class ZKMLIntegration:
@@ -44,6 +49,8 @@ class ZKMLIntegration:
     @action
     def transmission(self):
         agent = self.create_agent()
+        realized_vol, dec_price_change = generate_data()  # Generate sample data
+        X = np.array([[realized_vol, dec_price_change]])  # Create input data
         result = self.predict(agent, X)
         predicted_value = self.get_pred_val(result)
         pprint.pprint(predicted_value)

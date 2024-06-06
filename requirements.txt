@@ -1,0 +1,5 @@
+ape
+giza-sdk
+brownie
+numpy
+pprint
