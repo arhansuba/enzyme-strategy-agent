@@ -1,11 +1,11 @@
 from typing import Dict
-from brownie import LibAddressManager, Contract
-
+from ape import  Contract
+#from lib.LibAddressManager import LibAddressManager
 class LibBeacon:
     def __init__(self, admin: str) -> None:
         self.implementations: Dict[str, str] = {}
         self.contracts: Dict[str, str] = {}
-        self.addressManager = LibAddressManager.AddressManager()
+        #self.addressManager = LibAddressManager.AddressManager()
         self.admin = admin
 
     def register_implementation(self, name: str, implementation: str) -> None:
@@ -35,7 +35,7 @@ class LibBeacon:
     def get_contract(self, name: str) -> str:
         return self.contracts.get(name, "")
 
-    def get_address_manager(self) -> LibAddressManager.AddressManager:
+   # def get_address_manager(self) -> LibAddressManager.AddressManager:
         return self.addressManager
 
     def get_admin(self) -> str:

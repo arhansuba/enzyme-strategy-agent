@@ -4,6 +4,12 @@ from giza.agents.action import action
 from giza.agents import AgentResult, GizaAgent
 from giza.agents.task import task
 from ape import project
+
+# Import Enzyme Finance libraries
+from EnzymeVaultInterface import EnzymeVaultInterface
+from ZKMLIntegration import ZKMLIntegration
+
+# Import custom libraries from the lib folder
 from lib.LibAddressManager import LibAddressManager
 from lib.LibBeacon import LibBeacon
 from lib.LibBudget import LibBudget
@@ -17,8 +23,6 @@ from lib.LibSales import LibSales
 from lib.LibState import LibState
 from lib.LibZKM import LibZKM
 from lib.LibZeroExOracle import LibZeroExOracle
-
-
 
 # Get necessary values from environmental variables
 MODEL_ID = os.environ.get("MODEL_ID")
@@ -49,6 +53,10 @@ sales = LibSales()
 state = LibState()
 zkm = LibZKM()
 zero_ex_oracle = LibZeroExOracle()
+
+# Initialize EnzymeVaultInterface and ZKMLIntegration
+vault_interface = EnzymeVaultInterface()
+zkml_integration = ZKMLIntegration()
 
 # Define tasks
 @task
@@ -84,6 +92,7 @@ def predict(agent: GizaAgent, X: np.ndarray):
 @task
 def get_pred_val(prediction: AgentResult):
     return prediction.value[0][0]
+
 @task
 def get_tick_range(curr_tick, predicted_value, tokenA_decimals, tokenB_decimals, pool_fee):
     # Your implementation to calculate the tick range goes here
@@ -123,6 +132,16 @@ def transmission(
         lower_tick, upper_tick = get_tick_range(
             curr_tick, predicted_value, tokenA_decimals, tokenB_decimals, POOL_FEE
         )
+        
+        # Example usage of EnzymeVaultInterface
+        vault_details = vault_interface.get_vault_details(USER_ADDRESS)
+        print(f"Vault Details: {vault_details}")
+
+        # Example usage of ZKMLIntegration
+        proof = zkml_integration.generate_proof({"data": X})
+        verified = zkml_integration.verify_proof(proof)
+        print(f"Proof Verified: {verified}")
+
         # Assuming you have a function to mint tokens or perform other actions
         # contract_result = contracts.nft_manager.mint(mint_params)
         # Replace the line above with your actual contract interaction code

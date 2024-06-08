@@ -45,12 +45,12 @@ class ZKMLIntegration:
     @task
     def get_pred_val(self, prediction):
         return prediction.value[0][0]
-
-    @action
+   
+    #@action
     def transmission(self):
         agent = self.create_agent()
-        realized_vol, dec_price_change = generate_data()  # Generate sample data
-        X = np.array([[realized_vol, dec_price_change]])  # Create input data
+        realized_vol, dec_price_change = generate_data()  # Örnek veri oluştur
+        X = np.array([[realized_vol, dec_price_change]])  # Giriş verisi oluştur
         result = self.predict(agent, X)
         predicted_value = self.get_pred_val(result)
         pprint.pprint(predicted_value)

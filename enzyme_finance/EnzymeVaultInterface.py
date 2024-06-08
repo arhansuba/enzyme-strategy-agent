@@ -1,16 +1,17 @@
-from brownie import interface
-from ape import Account
 
+
+
+from giza.agents import Contract
 
 class EnzymeVaultInterface:
-    def __init__(self, _vault_minter: str, _vault_stake: str, _vault_zapper: str, _vault_rewards: str,
-                 _vault_staking_rewards: str, owner: Account) -> None:
-        self.vault_minter = interface.IEnzymeVaultMinter(_vault_minter)
-        self.vault_stake = interface.IEnzymeVaultStake(_vault_stake)
-        self.vault_zapper = interface.IEnzymeVaultZapper(_vault_zapper)
-        self.vault_rewards = interface.IEnzymeVaultRewards(_vault_rewards)
-        self.vault_staking_rewards = interface.IEnzymeVaultStakingRewards(_vault_staking_rewards)
+    def __init__(self, vault_minter, vault_stake, vault_zapper, vault_rewards, vault_staking_rewards, owner):
+        self.vault_minter = Contract.from_abi("IEnzymeVaultMinter", vault_minter, [])
+        self.vault_stake = Contract.from_abi("IEnzymeVaultStake", vault_stake, [])
+        self.vault_zapper = Contract.from_abi("IEnzymeVaultZapper", vault_zapper, [])
+        self.vault_rewards = Contract.from_abi("IEnzymeVaultRewards", vault_rewards, [])
+        self.vault_staking_rewards = Contract.from_abi("IEnzymeVaultStakingRewards", vault_staking_rewards, [])
         self.owner = owner
+
 
     def deposit(self, recipient: str, amount: int, shares: int) -> None:
         assert self.owner == self.owner, "Only the owner can deposit"

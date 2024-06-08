@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 
-from brownie import Contract, accounts
+from ape import Contract, accounts
 
 class EnzymeVaultController:
     def __init__(self, vaultMinter_addr, vaultStake_addr, vaultZapper_addr, vaultRewards_addr, vaultStakingRewards_addr):
